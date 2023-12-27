@@ -8,7 +8,7 @@ using static ObjectPooling;
 public class SpawningBlocks : MonoBehaviour
 {
     [SerializeField] private Transform spawningPosition;
-    [SerializeField] private GameObject _tile;
+    [SerializeField] private TileObject _tile;
     [SerializeField] private GameObject _blockContainer;
 
     private Vector3 blockPosition;
@@ -32,7 +32,8 @@ public class SpawningBlocks : MonoBehaviour
             for (int i = 0;i<generatedIndexList.Count;i++)
             {
                 randomBlockPosition = blockArea.transform.GetChild(generatedIndexList[i]);
-                GameObject obj = Instantiate(_tile, randomBlockPosition);
+                TileObject obj = Instantiate(_tile, randomBlockPosition);
+                obj.InitData(true);
                 Debug.Log("InitializeStartingBlocks");
             }
         }
@@ -44,18 +45,10 @@ public class SpawningBlocks : MonoBehaviour
     int previousRandomIndex;
     private void GetPositionToSpawnBlock(bool _threeGrid)
     {
-        int randomIndex;
         if ( _threeGrid)
         {
             GenerateUniqueRandomNumber();
             DebugList();
-            for (int i = 0; i < 2; i++)
-            {
-                randomIndex = generatedIndexList[i];
-                
-                randomBlockPosition = blockArea.transform.GetChild(randomIndex);
-
-            }
         }
     }
     int _index;
