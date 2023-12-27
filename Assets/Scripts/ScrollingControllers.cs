@@ -5,10 +5,9 @@ using UnityEngine.EventSystems;
 
 public class ScrollingControllers : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-   // public bool canDrag;
-     bool isDragging = false;
-    public Vector3 deltaPosition;
-    public Vector3 initialPosition;
+    bool isDragging = false;
+    private Vector3 deltaPosition;
+    private Vector3 initialPosition;
     RectTransform rectTransform;
     Canvas canvas;
     CanvasGroup canvasGroup;
