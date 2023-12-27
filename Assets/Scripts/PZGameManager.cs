@@ -6,10 +6,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class GameManager : MonoBehaviour
+public class PZGameManager : MonoBehaviour
 {
-    private static GameManager instance;
-    public static GameManager Instance => instance;
+    private static PZGameManager instance;
+    public static PZGameManager Instance => instance;
     #region Data Class
     [Serializable]
     public class NumberColors
@@ -32,18 +32,18 @@ public class GameManager : MonoBehaviour
         FiveTwelve,
         OneZeroTwoFour,
         TwoZeroFourEight
-
     }
-    #endregion
+    [Serializable]
     public enum GridSize
     {
         None,
         ThreeCrossGride,
         FourCrossGride
     }
+    #endregion
+
 
     #region PUBLIC VARIABLES
-    public Number _setNumber;
     #endregion
     #region PRIVATE VARIABLES
     [SerializeField] public GridSize _contentGridSize;
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     {
         _contentGridSize = GridSize.ThreeCrossGride;
         RectTransform _squareBoardGameObjectRectTransform = squareBoardGameObject.GetComponent<RectTransform>();
-        var spawingBlocks = squareBoardGameObject.GetComponent<SpawningBlocks>();
+        var spawingBlocks = squareBoardGameObject.GetComponent<PZGridController>();
         if (_contentGridSize == GridSize.ThreeCrossGride)
         {
             gridBoardLayout.constraintCount = 3;

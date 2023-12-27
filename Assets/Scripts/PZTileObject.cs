@@ -5,13 +5,13 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TileObject : MonoBehaviour
+public class PZTileObject : MonoBehaviour
 {
     #region Private Variables
     [SerializeField] private Text numberText;
     [SerializeField] private Image numberBgColor;
 
-    private GameManager.Number _SetNumber;
+    private PZGameManager.Number _SetNumber;
     
     #endregion
     #region Public Methods
@@ -26,15 +26,29 @@ public class TileObject : MonoBehaviour
             switch(initalNumberList[_generatedIndex])
             {
                 case 2:
-                    _SetNumber = GameManager.Number.Two;
+                    _SetNumber = PZGameManager.Number.Two;
                     break;
                 case 4:
-                    _SetNumber = GameManager.Number.Four;
+                    _SetNumber = PZGameManager.Number.Four;
                     break;
             }
-            numberBgColor.color = GameManager.Instance.AssignNumberColorForBg(_SetNumber);
+            numberBgColor.color = PZGameManager.Instance.AssignNumberColorForBg(_SetNumber);
         }
     }
+    internal int GetTileNumber()
+    {
+        return int.Parse(numberText.text);
+    }
+    internal Color GetTileColor() 
+    { 
+        return numberBgColor.color;
+    }
+    internal void AssignData(int _number, Color _color)
+    {
+        numberText.text = _number.ToString();
+        numberBgColor.color = _color;
+    }
+    
    
 
     #endregion

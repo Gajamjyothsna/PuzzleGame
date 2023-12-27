@@ -58,7 +58,7 @@ public class ObjectPooling : MonoBehaviour
         //}
         GameObject objToSpawn = poolDictionary[_tag].Dequeue();
         objToSpawn.SetActive(true);
-        objToSpawn.transform.position = GameManager.Instance.sqaureBoardTransform.position;
+        objToSpawn.transform.position = PZGameManager.Instance.sqaureBoardTransform.position;
         // Debug.Log("position " + _positionToSpawn);
 
         poolDictionary[_tag].Enqueue(objToSpawn);
