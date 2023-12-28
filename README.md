@@ -1,2 +1,2 @@
 # PuzzleGame
-This is 2D based puzzle Game
+This is 2D based puzzle 2048 game.
