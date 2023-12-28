@@ -5,84 +5,83 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class PZGameManager : MonoBehaviour
+namespace Puzzle2048
 {
-    private static PZGameManager instance;
-    public static PZGameManager Instance => instance;
-    #region Data Class
-    [Serializable]
-    public class NumberColors
+    public class PZGameManager : MonoBehaviour
     {
-        public Color color;
-        public Number _number;
-    }
-    [Serializable]
-    public enum Number
-    {
-        None,
-        Two,
-        Four,
-        Eight,
-        Sixteen,
-        ThirtyTwo,
-        SixtyFour,
-        OneHundredTwentyEight,
-        TwoFiftySix,
-        FiveTwelve,
-        OneZeroTwoFour,
-        TwoZeroFourEight
-    }
-    [Serializable]
-    public enum GridSize
-    {
-        None,
-        ThreeCrossGride,
-        FourCrossGride
-    }
-    #endregion
-
-
-    #region PUBLIC VARIABLES
-    #endregion
-    #region PRIVATE VARIABLES
-    [SerializeField] public GridSize _contentGridSize;
-    [SerializeField] GridLayoutGroup gridBoardLayout;
-    [SerializeField] GameObject blockerObject;
-    [SerializeField] GameObject squareBoardGameObject;
-    [SerializeField] public Transform sqaureBoardTransform;
-    [SerializeField] private List<NumberColors> numberColorsData;
-    private bool threeGrid;
-    #endregion
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this;
-    }
-    void Start()
-    {
-        _contentGridSize = GridSize.ThreeCrossGride;
-        RectTransform _squareBoardGameObjectRectTransform = squareBoardGameObject.GetComponent<RectTransform>();
-        var spawingBlocks = squareBoardGameObject.GetComponent<PZGridController>();
-        if (_contentGridSize == GridSize.ThreeCrossGride)
+        private static PZGameManager instance;
+        public static PZGameManager Instance => instance;
+        #region Data Class
+        [Serializable]
+        public class NumberColors
         {
-            gridBoardLayout.constraintCount = 3;
-            _squareBoardGameObjectRectTransform.sizeDelta = new Vector2(600, 600);
-            spawingBlocks.InitializeStartingBlocks(true);
+            public Color color;
+            public Number _number;
         }
-        else if (_contentGridSize == GridSize.FourCrossGride)
+        [Serializable]
+        public enum Number
         {
-            Debug.LogWarning(_contentGridSize.ToString());
-            gridBoardLayout.constraintCount = 4;
-            _squareBoardGameObjectRectTransform.sizeDelta = new Vector2(800, 800);
-            spawingBlocks.InitializeStartingBlocks(false);
+            None,
+            Two,
+            Four,
+            Eight,
+            Sixteen,
+            ThirtyTwo,
+            SixtyFour,
+            OneHundredTwentyEight,
+            TwoFiftySix,
+            FiveTwelve,
+            OneZeroTwoFour,
+            TwoZeroFourEight
         }
-    }
-    public Color AssignNumberColorForBg(Number _colorNumber)
-    {
-        return numberColorsData.Find(x => x._number == _colorNumber).color;
-    }
+        [Serializable]
+        public enum GridSize
+        {
+            None,
+            ThreeCrossGride,
+            FourCrossGride
+        }
+        #endregion
 
-    
-   
+        #region Public Variables
+        #endregion
+        #region Private Variables
+        [SerializeField] public GridSize _contentGridSize;
+        [SerializeField] GridLayoutGroup gridBoardLayout;
+        [SerializeField] GameObject blockerObject;
+        [SerializeField] GameObject squareBoardGameObject;
+        [SerializeField] public Transform sqaureBoardTransform;
+        [SerializeField] private List<NumberColors> numberColorsData;
+        private bool threeGrid;
+        #endregion
+        private void Awake()
+        {
+            if (instance == null)
+                instance = this;
+        }
+        void Start()
+        {
+            _contentGridSize = GridSize.ThreeCrossGride;
+            RectTransform _squareBoardGameObjectRectTransform = squareBoardGameObject.GetComponent<RectTransform>();
+            var spawingBlocks = squareBoardGameObject.GetComponent<PZGridController>();
+            if (_contentGridSize == GridSize.ThreeCrossGride)
+            {
+                gridBoardLayout.constraintCount = 3;
+                _squareBoardGameObjectRectTransform.sizeDelta = new Vector2(600, 600);
+                spawingBlocks.InitializeStartingBlocks(true);
+            }
+            else if (_contentGridSize == GridSize.FourCrossGride)
+            {
+                Debug.LogWarning(_contentGridSize.ToString());
+                gridBoardLayout.constraintCount = 4;
+                _squareBoardGameObjectRectTransform.sizeDelta = new Vector2(800, 800);
+                spawingBlocks.InitializeStartingBlocks(false);
+            }
+        }
+        public Color AssignNumberColorForBg(Number _colorNumber)
+        {
+            return numberColorsData.Find(x => x._number == _colorNumber).color;
+        }
+
+    }
 }

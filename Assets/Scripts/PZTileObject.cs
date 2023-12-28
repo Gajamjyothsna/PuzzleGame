@@ -5,54 +5,57 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PZTileObject : MonoBehaviour
+namespace Puzzle2048
 {
-    #region Private Variables
-    [SerializeField] private Text numberText;
-    [SerializeField] private Image numberBgColor;
-
-    private PZGameManager.Number _SetNumber;
-    
-    #endregion
-    #region Public Methods
-    internal void InitData(bool _initialBlock)
+    public class PZTileObject : MonoBehaviour
     {
-        if (_initialBlock)
+        #region Private Variables
+        [SerializeField] private Text numberText;
+        [SerializeField] private Image numberBgColor;
+
+        private PZGameManager.Number _SetNumber;
+
+        #endregion
+        #region Public Methods
+        internal void InitData(bool _initialBlock)
         {
-            List<int> initalNumberList = new List<int> { 2, 4 };
-            int _generatedIndex = UnityEngine.Random.Range(0, initalNumberList.Count);
-            UnityEngine.Debug.Log("generatedNumber" + _generatedIndex);
-            numberText.text = initalNumberList[_generatedIndex].ToString();
-            switch(initalNumberList[_generatedIndex])
+            if (_initialBlock)
             {
-                case 2:
-                    _SetNumber = PZGameManager.Number.Two;
-                    break;
-                case 4:
-                    _SetNumber = PZGameManager.Number.Four;
-                    break;
+                List<int> initalNumberList = new List<int> { 2, 4 };
+                int _generatedIndex = UnityEngine.Random.Range(0, initalNumberList.Count);
+                UnityEngine.Debug.Log("generatedNumber" + _generatedIndex);
+                numberText.text = initalNumberList[_generatedIndex].ToString();
+                switch (initalNumberList[_generatedIndex])
+                {
+                    case 2:
+                        _SetNumber = PZGameManager.Number.Two;
+                        break;
+                    case 4:
+                        _SetNumber = PZGameManager.Number.Four;
+                        break;
+                }
+                numberBgColor.color = PZGameManager.Instance.AssignNumberColorForBg(_SetNumber);
             }
-            numberBgColor.color = PZGameManager.Instance.AssignNumberColorForBg(_SetNumber);
         }
-    }
-    internal int GetTileNumber()
-    {
-        return int.Parse(numberText.text);
-    }
-    internal Color GetTileColor() 
-    { 
-        return numberBgColor.color;
-    }
-    internal void AssignData(int _number, Color _color)
-    {
-        numberText.text = _number.ToString();
-        numberBgColor.color = _color;
-    }
-    
-   
+        internal int GetTileNumber()
+        {
+            return int.Parse(numberText.text);
+        }
+        internal Color GetTileColor()
+        {
+            return numberBgColor.color;
+        }
+        internal void AssignData(int _number, Color _color)
+        {
+            numberText.text = _number.ToString();
+            numberBgColor.color = _color;
+        }
 
-    #endregion
-    #region Private Methods
-    #endregion
 
+
+        #endregion
+        #region Private Methods
+        #endregion
+
+    }
 }
