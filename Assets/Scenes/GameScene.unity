@@ -1692,7 +1692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51e5a9ff34c92384cab4ce4be98bad2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _setNumber: 0
   _contentGridSize: 1
   gridBoardLayout: {fileID: 1174347960}
   blockerObject: {fileID: 3491339693580200579, guid: 6b19911abd1c74746ae6a1c2bdeb4eb9, type: 3}
