@@ -218,10 +218,12 @@ namespace Puzzle2048
             }
             else
             {
+
                 for (int i = 0; i < existedBlockList.Count; i++)
                 {
                     if (existedBlockList[i] % PZConstants.gridMatrix == 1)
                     {
+                        int _indexCount = 0;
                         int currentIndex = existedBlockList[i] + 1;
                         Debug.Log("count " + blockArea.transform.GetChild(currentIndex).gameObject.transform.childCount);
                         int previousIndex = existedBlockList[i];
@@ -235,11 +237,12 @@ namespace Puzzle2048
                             int nextToCurrentIndex = existedBlockList[i] - 1;
                             if (CheckBlockExistedAtSpecifiedIndex(nextToCurrentIndex))
                             {
+                                Debug.LogError("if case - index 1");
                                 int nextIndex = existedBlockList[i] - 1;
                                 PZTileObject obj1 = blockArea.transform.GetChild(nextIndex).gameObject.transform.GetChild(0).GetComponent<PZTileObject>();
                                 int tileNumber = obj1.GetTileNumber();
                                 Color tileColor = obj1.GetTileColor();
-                            Destroy(blockArea.transform.GetChild(nextIndex).gameObject.transform.GetChild(0).gameObject);
+                                Destroy(blockArea.transform.GetChild(nextIndex).gameObject.transform.GetChild(0).gameObject);
 
                                 randomBlockPosition = blockArea.transform.GetChild(currentIndex);
                                 PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
@@ -249,29 +252,37 @@ namespace Puzzle2048
                                 PZTileObject nextTileObj = Instantiate(_tile, nextRandomPosition);
                                 nextTileObj.AssignData(tileNumber, tileColor);
 
-                              
+
                             }
                             else
                             {
-                                randomBlockPosition = blockArea.transform.GetChild(currentIndex);
-                                PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
-                                tileObj.AssignData(_tileNumber, _tileColor);
+                                Debug.LogError("else case - index 1");
+                                _indexCount = _indexCount + 1;
+                                if(_indexCount == 1)
+                                {
+                                    randomBlockPosition = blockArea.transform.GetChild(currentIndex);
+                                    PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
+                                    tileObj.AssignData(_tileNumber, _tileColor);
+                                }
                             }
                         }
                     }
                     else if (existedBlockList[i] % PZConstants.gridMatrix == 0)
                     {
+                        int _indexCount = 0;
                         int previousIndex = existedBlockList[i];
                         PZTileObject obj = blockArea.transform.GetChild(previousIndex).gameObject.transform.GetChild(0).GetComponent<PZTileObject>();
                         Color _tileColor = obj.GetTileColor();
                         int _tileNumber = obj.GetTileNumber();
-                      Destroy(blockArea.transform.GetChild(previousIndex).gameObject.transform.GetChild(0).gameObject);
+                        Destroy(blockArea.transform.GetChild(previousIndex).gameObject.transform.GetChild(0).gameObject);
+
                         int currentindex = existedBlockList[i] + 2;
                         if(!CheckBlockExistedAtSpecifiedIndex(currentindex))
                         {
                             int nextCurrentIndex = existedBlockList[i] + 1;
                             if(CheckBlockExistedAtSpecifiedIndex(nextCurrentIndex))
                             {
+                                Debug.LogError("if case - 0");
                                 int nextIndex = existedBlockList[i] + 1;
                                 PZTileObject obj1 = blockArea.transform.GetChild(nextIndex).gameObject.transform.GetChild(0).GetComponent<PZTileObject>();
                                 int tileNumber = obj1.GetTileNumber();
@@ -286,24 +297,19 @@ namespace Puzzle2048
                                 PZTileObject nextTileObj = Instantiate(_tile, nextRandomPosition);
                                 nextTileObj.AssignData(tileNumber, tileColor);
 
+
                             }
                             else
                             {
-                                randomBlockPosition = blockArea.transform.GetChild(currentindex);
-                                PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
-                                tileObj.AssignData(_tileNumber, _tileColor);
+                                Debug.LogError("else case - 0");
+                                _indexCount = _indexCount + 1;
+                                if(_indexCount == 1)
+                                {
+                                    randomBlockPosition = blockArea.transform.GetChild(currentindex);
+                                    PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
+                                    tileObj.AssignData(_tileNumber, _tileColor);
+                                }
                             }
-                        }
-                        else if(CheckBlockExistedAtSpecifiedIndex(currentindex))
-                        {
-                            int nextIndex = existedBlockList[i] + 1;
-                            if(CheckBlockExistedAtSpecifiedIndex(nextIndex))
-                            {
-                                randomBlockPosition = blockArea.transform.GetChild(nextIndex);
-                                PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
-                                tileObj.AssignData(_tileNumber, _tileColor);
-                            }
-                            
                         }
                        
                     }
@@ -329,6 +335,7 @@ namespace Puzzle2048
                     {
                         if (existedBlockList[i] % PZConstants.secondRowMultiplier == 0)  //Index 4
                         {
+                            int _indexCount = 0;
                             int previousIndex = existedBlockList[i];
                             PZTileObject obj = blockArea.transform.GetChild(previousIndex).gameObject.transform.GetChild(0).GetComponent<PZTileObject>();
                             Color _tileColor = obj.GetTileColor();
@@ -358,14 +365,19 @@ namespace Puzzle2048
                                 else
                                 {
                                     Debug.LogError("Index - 4 if else");
-                                    randomBlockPosition = blockArea.transform.GetChild(currentIndex);
-                                    PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
-                                    tileObj.AssignData(_tileNumber, _tileColor);
+                                    _indexCount = _indexCount + 1;
+                                    if (_indexCount == 1)
+                                    {
+                                        randomBlockPosition = blockArea.transform.GetChild(currentIndex);
+                                        PZTileObject tileObj1 = Instantiate(_tile, randomBlockPosition);
+                                        tileObj1.AssignData(_tileNumber, _tileColor);
+                                    }
                                 }
                             }
                         }
                         else if (existedBlockList[i] % PZConstants.secondRowMultiplier == PZConstants.gridMatrix) //index 7
                         {
+                            int _indexCount = 0;
                             int previousIndex = existedBlockList[i];
                             PZTileObject obj = blockArea.transform.GetChild(previousIndex).gameObject.transform.GetChild(0).GetComponent<PZTileObject>();
                             Color _tileColor = obj.GetTileColor();
@@ -386,9 +398,13 @@ namespace Puzzle2048
                             else
                             {
                                 Debug.LogError("Index - 7 else");
-                                randomBlockPosition = blockArea.transform.GetChild(currentindex);
-                                PZTileObject tileObj1 = Instantiate(_tile, randomBlockPosition);
-                                tileObj1.AssignData(_tileNumber, _tileColor);
+                                _indexCount = _indexCount + 1;
+                                if(_indexCount == 1)
+                                {
+                                    randomBlockPosition = blockArea.transform.GetChild(currentindex);
+                                    PZTileObject tileObj1 = Instantiate(_tile, randomBlockPosition);
+                                    tileObj1.AssignData(_tileNumber, _tileColor);
+                                }
                             }
                         }
 
@@ -417,18 +433,16 @@ namespace Puzzle2048
                                     randomBlockPosition = blockArea.transform.GetChild(currentIndex);
                                     PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
                                     tileObj.AssignData(tileNumber, tileColor);
-                                    Debug.LogError("TileObjectName" + tileObj.name);
 
                                     Transform previousRandomPosition = blockArea.transform.GetChild(previousIndex);
                                     PZTileObject tileObject = Instantiate(_tile, previousRandomPosition);
                                     tileObject.AssignData(_tileNumber, _tileColor);
-                                    Debug.LogError("TileObjectName" + tileObject.name);
 
-                                   
                                 }
                                 else
                                 {
                                     Debug.LogError("Index - 3 else");
+
                                     randomBlockPosition = blockArea.transform.GetChild(currentIndex);
                                     PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
                                     tileObj.AssignData(_tileNumber, _tileColor);
@@ -482,8 +496,8 @@ namespace Puzzle2048
                                     PZTileObject tempObj = blockArea.transform.GetChild(nextCurrentIndex).gameObject.transform.GetChild(0).GetComponent<PZTileObject>();
                                     Color tileColor = tempObj.GetTileColor();
                                     int tileNumber = tempObj.GetTileNumber();
-                                  Destroy(blockArea.transform.GetChild(nextCurrentIndex).gameObject.transform.GetChild(0).gameObject);
-                                
+                                    Destroy(blockArea.transform.GetChild(nextCurrentIndex).gameObject.transform.GetChild(0).gameObject);
+
                                     randomBlockPosition = blockArea.transform.GetChild(currentIndex);
                                     PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
                                     tileObj.AssignData(tileNumber, tileColor);
@@ -491,7 +505,6 @@ namespace Puzzle2048
                                     Transform previousRandomPosition = blockArea.transform.GetChild(previousIndex);
                                     PZTileObject tileObject = Instantiate(_tile, previousRandomPosition);
                                     tileObject.AssignData(_tileNumber, _tileColor);
-
 
                                 }
                                 else
@@ -617,10 +630,10 @@ namespace Puzzle2048
                     }
                     else if (existedBlockList[i] % PZConstants.gridMatrix == 0)
                     {
+                        int _indexCount = 0;
                         if (existedBlockList[i] % PZConstants.secondRowMultiplier == PZConstants.gridMatrix) //Index 3
                         {
-                            if (PZInputManager.instance.IsDown)
-                            {
+                                _indexCount = _indexCount + 1;
                                 Debug.LogError("Index - 3");
                                 int previousIndex = existedBlockList[i];
                                 PZTileObject obj = blockArea.transform.GetChild(previousIndex).gameObject.transform.GetChild(0).GetComponent<PZTileObject>();
@@ -628,10 +641,21 @@ namespace Puzzle2048
                                 int _tileNumber = obj.GetTileNumber();
                                 Destroy(blockArea.transform.GetChild(previousIndex).gameObject.transform.GetChild(0).gameObject);
                                 int currentIndex = existedBlockList[i] + PZConstants.gridMatrix;
-                                randomBlockPosition = blockArea.transform.GetChild(currentIndex);
-                                PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
-                                tileObj.AssignData(_tileNumber, _tileColor);
+                                if(!CheckBlockExistedAtSpecifiedIndex(currentIndex))
+                            {
+                                int nextCurrentIndex = existedBlockList[i] - PZConstants.gridMatrix;
+                                if(!CheckBlockExistedAtSpecifiedIndex(nextCurrentIndex))
+                                {
+                                    if (_indexCount == 1)
+                                    {
+                                        Debug.Log("index count " + _indexCount);
+                                        randomBlockPosition = blockArea.transform.GetChild(currentIndex);
+                                        PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
+                                        tileObj.AssignData(_tileNumber, _tileColor);
+                                    }
+                                }
                             }
+                                
                         }
                         else if (existedBlockList[i] % PZConstants.secondRowMultiplier == 0) //Index 0
                         {
@@ -1060,6 +1084,18 @@ namespace Puzzle2048
             checkRightIndexes = false;
             checkDownIndexs=false;
             checkLeftIndexs=false;
+        }
+        int checkExistedIndex = 0;
+        private int CheckSameIndexsInExistedList(int _checkValue)
+        {
+            for(int i = 0; i < existedBlockList.Count; i++)
+            {
+                if (existedBlockList[i] % PZConstants.gridMatrix == _checkValue)
+                {
+                    checkExistedIndex = checkExistedIndex + 1;
+                }
+            }
+            return checkExistedIndex;
         }
         #endregion
     }
