@@ -93,12 +93,14 @@ namespace Puzzle2048
             if (generatedIndexList[0] == generatedIndexList[1])
             {
                 Debug.Log("both are indexs are same");
-                Debug.LogError("index at last" + randomIndexList[randomIndexList.Count - 1]);
+                Debug.LogError("index at last" + randomIndexList[generatedIndexList[1]]);
                 Debug.LogError("generation list last index " + generatedIndexList[1]);
-                randomIndexList.RemoveAt(randomIndexList.Count - 1);
+                randomIndexList.RemoveAt(randomIndexList[generatedIndexList[1]]);
                 generatedIndexList.RemoveAt(1);
                 _index = Random.Range(0, randomIndexList.Count);
+                Debug.LogError("Next generated Number" + _index);
                 generatedIndexList.Add(_index);
+                DebugList();
             }
         }
         private void DebugList()
@@ -124,6 +126,8 @@ namespace Puzzle2048
             bool status = CheckTwoLeftIndexs();
             if (status)
             {
+                int _sourceIndex = 0, _destinationIndex = 0;
+
                 return;
             }
             else
@@ -144,23 +148,29 @@ namespace Puzzle2048
                             int nextToCurrentIndex = existedBlockList[i] + 1;
                             if (CheckBlockExistedAtSpecifiedIndex(nextToCurrentIndex))
                             {
-                                randomBlockPosition = blockArea.transform.GetChild(currentIndex);
-                                PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
-                                tileObj.AssignData(_tileNumber, _tileColor);
-
-                                int nextIndex = existedBlockList[i + 1];
+                                int nextIndex = existedBlockList[i] + 1;
                                 PZTileObject obj1 = blockArea.transform.GetChild(nextIndex).gameObject.transform.GetChild(0).GetComponent<PZTileObject>();
                                 int tileNumber = obj1.GetTileNumber();
                                 Color tileColor = obj1.GetTileColor();
                                 Destroy(blockArea.transform.GetChild(nextIndex).gameObject.transform.GetChild(0).gameObject);
 
-                                Transform nextRandomPosition = blockArea.transform.GetChild(previousIndex);
-                                PZTileObject nextTileObj = Instantiate(_tile, nextRandomPosition);
-                                nextTileObj.AssignData(tileNumber, tileColor);
-                                if(_tileNumber == tileNumber)
+                                if (_tileNumber == tileNumber)
                                 {
                                     Debug.Log("Merge Blocks");
+                                    Debug.LogError("Merge Blocks Left : " + "SourceIndex" + " " + previousIndex + " " + "destination Index" + currentIndex);
+                                    MergeBlocks(_tileNumber, currentIndex);
                                 }
+                                else
+                                {
+                                    Transform nextRandomPosition = blockArea.transform.GetChild(previousIndex);
+                                    PZTileObject nextTileObj = Instantiate(_tile, nextRandomPosition);
+                                    nextTileObj.AssignData(tileNumber, tileColor);
+
+                                    randomBlockPosition = blockArea.transform.GetChild(currentIndex);
+                                    PZTileObject tileObj = Instantiate(_tile, randomBlockPosition);
+                                    tileObj.AssignData(_tileNumber, _tileColor);
+                                }
+                               
                             }
                             else
                             {
@@ -257,6 +267,9 @@ namespace Puzzle2048
                                 if(tileNumber == _tileNumber)
                                 {
                                     Debug.Log("Merge Blocks");
+                                    Debug.LogError("Merge Blocks right : " + "SourceIndex" + " " +  + nextToCurrentIndex+" " + "destination Index" + currentIndex);
+                                //    DestroyImmediate(blockArea.transform.GetChild(nextToCurrentIndex).gameObject.transform.GetChild(0).gameObject);
+                                    MergeBlocks(nextToCurrentIndex, currentIndex);
                                 }
 
 
@@ -304,6 +317,9 @@ namespace Puzzle2048
                                 if (tileNumber == _tileNumber)
                                 {
                                     Debug.Log("Merge Blocks");
+                                    Debug.LogError("Merge Blocks Left : " + "SourceIndex" + " " + nextCurrentIndex + " " + "destination Index" + currentindex);
+                                   // DestroyImmediate(blockArea.transform.GetChild(nextCurrentIndex).gameObject.transform.GetChild(0).gameObject);
+                                    MergeBlocks(nextCurrentIndex, currentindex);
                                 }
 
                             }
@@ -370,6 +386,9 @@ namespace Puzzle2048
                                     if (tileNumber == _tileNumber)
                                     {
                                         Debug.Log("Merge Blocks");
+                                        Debug.LogError("Merge Blocks Left : " + "SourceIndex" + " " + previousIndex + " " + "destination Index" + currentIndex);
+                                     //   DestroyImmediate(blockArea.transform.GetChild(previousIndex).gameObject.transform.GetChild(0).gameObject);
+                                        MergeBlocks(previousIndex, currentIndex);
                                     }
 
                                 }
@@ -452,6 +471,9 @@ namespace Puzzle2048
                                     if (tileNumber == _tileNumber)
                                     {
                                         Debug.Log("Merge Blocks");
+                                        Debug.LogError("Merge Blocks Left : " + "SourceIndex" + " " + previousIndex + " " + "destination Index" + currentIndex);
+                                    //    DestroyImmediate(blockArea.transform.GetChild(previousIndex).gameObject.transform.GetChild(0).gameObject);
+                                        MergeBlocks(previousIndex, currentIndex);
                                     }
 
                                 }
@@ -525,6 +547,9 @@ namespace Puzzle2048
                                     if (tileNumber == _tileNumber)
                                     {
                                         Debug.Log("Merge Blocks");
+                                        Debug.LogError("Merge Blocks Left : " + "SourceIndex" + " " + previousIndex + " " + "destination Index" + currentIndex);
+                                     //   DestroyImmediate(blockArea.transform.GetChild(previousIndex).gameObject.transform.GetChild(0).gameObject);
+                                        MergeBlocks(previousIndex, currentIndex);
                                     }
 
                                 }
@@ -628,6 +653,9 @@ namespace Puzzle2048
                                     if (tileNumber == _tileNumber)
                                     {
                                         Debug.Log("Merge Blocks");
+                                        Debug.LogError("Merge Blocks Left : " + "SourceIndex" + " " + nextCurrentIndex + " " + "destination Index" + currentindex);
+                                     //   DestroyImmediate(blockArea.transform.GetChild(nextCurrentIndex).gameObject.transform.GetChild(0).gameObject);
+                                        MergeBlocks(nextCurrentIndex, currentindex);
                                     }
                                 }
                                 else
@@ -710,6 +738,9 @@ namespace Puzzle2048
                                     if (tileNumber == _tileNumber)
                                     {
                                         Debug.Log("Merge Blocks");
+                                        Debug.LogError("Merge Blocks Left : " + "SourceIndex" + " " + nextCurrentIndex + " " + "destination Index" + currentindex);
+                                     //   DestroyImmediate(blockArea.transform.GetChild(nextCurrentIndex).gameObject.transform.GetChild(0).gameObject);
+                                        MergeBlocks(nextCurrentIndex, currentindex);
                                     }
 
                                 }
@@ -794,6 +825,9 @@ namespace Puzzle2048
                                     if (tileNumber == _tileNumber)
                                     {
                                         Debug.Log("Merge Blocks");
+                                        Debug.LogError("Merge Blocks Left : " + "SourceIndex" + " " + nextCurrentIndex + " " + "destination Index" + currentindex);
+                                      //  DestroyImmediate(blockArea.transform.GetChild(nextCurrentIndex).gameObject.transform.GetChild(0).gameObject);
+                                        MergeBlocks(nextCurrentIndex, currentindex);
                                     }
 
 
@@ -1157,6 +1191,28 @@ namespace Puzzle2048
         private int GetRandomIndexFromEmptyBlockList()
         {
             return emptyBlockList[Random.Range(0, emptyBlockList.Count)];
+        }
+        private void MergeBlocks(int _tileNumber, int _destinationIndex)
+        {
+            Transform mergeBlockPosition = blockArea.transform.GetChild(_destinationIndex);
+            PZTileObject mergeTileObject = Instantiate(_tile, mergeBlockPosition);
+            PZGameManager.Number _assignNumber = PZGameManager.Instance.GetNumberType(_tileNumber * 2);
+            mergeTileObject.AssignData(_tileNumber * 2, PZGameManager.Instance.AssignNumberColorForBg(_assignNumber));
+
+            GetEmptyBlockList();
+            int _nextIndex = GetRandomIndexFromEmptyBlockList();
+            Debug.LogError("Empty Block Index" + _nextIndex);
+            
+            Transform newBlockPosition = blockArea.transform.GetChild(_nextIndex);
+            PZTileObject newTileObject = Instantiate(_tile, newBlockPosition);
+            newTileObject.InitData(true);
+        }
+        private void DisplayEmptyBlockList()
+        {
+            for(int i = 0; i < emptyBlockList.Count; i++)
+            {
+                Debug.LogError("EmptyBlockList" + emptyBlockList[i]);
+            }
         }
         #endregion
     }

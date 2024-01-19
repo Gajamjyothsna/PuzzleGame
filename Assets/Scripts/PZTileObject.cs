@@ -25,15 +25,7 @@ namespace Puzzle2048
                 int _generatedIndex = UnityEngine.Random.Range(0, initalNumberList.Count);
                 UnityEngine.Debug.Log("generatedNumber" + _generatedIndex);
                 numberText.text = initalNumberList[_generatedIndex].ToString();
-                switch (initalNumberList[_generatedIndex])
-                {
-                    case 2:
-                        _SetNumber = PZGameManager.Number.Two;
-                        break;
-                    case 4:
-                        _SetNumber = PZGameManager.Number.Four;
-                        break;
-                }
+                _SetNumber = PZGameManager.Instance.GetNumberType(initalNumberList[_generatedIndex]);
                 numberBgColor.color = PZGameManager.Instance.AssignNumberColorForBg(_SetNumber);
             }
         }

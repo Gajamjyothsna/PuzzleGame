@@ -82,6 +82,47 @@ namespace Puzzle2048
         {
             return numberColorsData.Find(x => x._number == _colorNumber).color;
         }
+        private Number _numberType;
+        public Number GetNumberType(int  _number)
+        {
+            switch(_number)
+            {
+                case 2:
+                    _numberType = Number.Two; 
+                    break;
+                case 4:
+                    _numberType = Number.Four; 
+                    break;
+                case 8:
+                    _numberType = Number.Eight;
+                    break;
+                case 16:
+                    _numberType = Number.Sixteen;
+                    break;
+                case 32:
+                    _numberType = Number.ThirtyTwo;
+                    break;
+                case 64:
+                    _numberType = Number.SixtyFour;
+                    break;
+                case 128:
+                    _numberType = Number.OneHundredTwentyEight;
+                    break;
+                case 256:
+                    _numberType = Number.TwoFiftySix;
+                    break;
+                case 512:
+                    _numberType = Number.FiveTwelve;
+                    break;
+                case 1024:
+                    _numberType = Number.OneZeroTwoFour;
+                    break;
+                case 2048:
+                    _numberType = Number.TwoZeroFourEight;
+                    break;
+            }
+            return _numberType;
+        }
 
     }
 }
